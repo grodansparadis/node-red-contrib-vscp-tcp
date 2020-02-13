@@ -1,0 +1,84 @@
+<!--
+MIT License
+
+Copyright (c) 2020 Åke Hedman, Grodans Paradis AB
+
+This file is part of the VSCP (https://www.vscp.org)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('vscp-filter',{
+        category: 'config',
+        defaults: {
+            name: {value:"",required:true},
+            filter_priority: {value:"0"},
+            mask_priority: {value:"0x00"},
+            filter_vscp_class: {value:"0"},
+            mask_vscp_class: {value:"0x0000"},
+            filter_vscp_type: {value:"0"},
+            mask_vscp_type: {value:"0x0000"},
+            filter_guid: {value:"00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"},
+            mask_guid: {value:"00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"},
+        },
+        label: function() {
+            return this.name;
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="vscp-filter">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Filter name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-filter_priority"><i class="fa fa-filter"></i> Filter Priority</label>
+        <input type="text" id="node-config-input-filter_priority">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-mask_priority"><i class="fa fa-filter"></i> Mask Priority</label>
+        <input type="text" id="node-config-input-mask_priority">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-filter_vscp_class"><i class="fa fa-filter"></i> Filter Class</label>
+        <input type="text" id="node-config-input-filter_vscp_class">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-mask_vscp_class"><i class="fa fa-filter"></i> Mask Class</label>
+        <input type="text" id="node-config-input-mask_vscp_class">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-filter_vscp_type"><i class="fa fa-filter"></i> Filter Type</label>
+        <input type="text" id="node-config-input-filter_vscp_type">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-mask_vscp_type"><i class="fa fa-filter"></i> Mask Type</label>
+        <input type="text" id="node-config-input-mask_vscp_type">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-filter_guid"><i class="fa fa-filter"></i> Filter GUID</label>
+        <input type="text" id="node-config-input-filter_guid">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-mask_guid"><i class="fa fa-filter"></i> Mask GUID</label>
+        <input type="text" id="node-config-input-mask_guid">
+    </div>
+</script>

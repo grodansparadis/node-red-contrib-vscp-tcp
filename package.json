@@ -1,0 +1,59 @@
+{
+    "name": "node-red-contrib-vscp-tcp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "keywords": [
+        "node-red",
+        "nodes",
+        "flow",
+        "vscp",
+        "tcp/ip",
+        "iot",
+        "m2m",
+        "automation",
+        "home-automation",
+        "sensor",
+        "i/o"
+    ],
+    "scripts": {
+        "start": "mkdir -p .node-red/node_modules && ln -sf $PWD $PWD/.node-red/node_modules/node-red-contrib-vscp-tcp && node-red -u .node-red",
+        "lint": "eslint .",
+        "readme2html": "markdown README.md -f gfm",
+        "update-dependencies": "ncu -u && npm install"
+    },
+    "author": "akhe@grodansparadis.com",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/grodansparadis/node-red-contrib-vscp-tcp"
+    },
+    "bugs": {
+        "url": "https://github.com/grodansparadis/node-red-contrib-vscp-tcp/issues"
+    },
+    "dependencies": {
+        "node-vscp": "^1.0.17",
+        "node-vscp-class": "^1.0.4",
+        "node-vscp-tcp": "^1.0.1",
+        "node-vscp-type": "^1.0.4"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "eslint": "^6.8.0",
+        "markdown-to-html": "0.0.13",
+        "mocha": "^7.0.1",
+        "node-red": "^1.0.3",
+        "node-red-contrib-mock-node": "^0.4.0",
+        "node-red-node-test-helper": "^0.2.3",
+        "npm-check-updates": "^4.0.1",
+        "should": "^13.2.3"
+    },
+    "node-red": {
+        "nodes": {
+            "vscp-tcp-in": "src/vscp-tcp-in.js",
+            "vscp-tcp-out": "src/vscp-tcp-out.js",
+            "vscp-tcp-host": "src/vscp-tcp-host.js",
+            "vscp-filter": "src/vscp-filter.js"
+        }
+    }
+}
