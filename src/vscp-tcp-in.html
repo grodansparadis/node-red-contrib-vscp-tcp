@@ -76,5 +76,56 @@ SOFTWARE.
 </script>
 
 <script type="text/x-red" data-help-name="vscp-tcp-in">
-    <p>VSCP tcp/ip input connection. Use to connect to a VSCP host that export the VSCP tcp/ip link protocol to get events from the host.</p>
-</script>
+    <p>VSCP tcp/ip input connection. Use to connect to a VSCP host that export the 
+        VSCP tcp/ip link protocol to get events from the host.</p>
+
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>payload
+                <span class="property-type">object | string</span>
+            </dt>
+            <dd> the payload is the event to publish to the remote 
+                VSCP host. </dd>
+        </dl>
+    
+     <h3>Outputs</h3>
+         <ol class="node-ports">
+             This node has no outputs.
+         </ol>
+    
+    <h3>Details</h3>
+         The VSCP tcp/ip link interface is an interface that allows a remote
+         machine or user to control a VSCP hardware device or some software like
+         the VSCP daemon. The interface allows for filtering and for sending AND
+         receiving VSCP events among many other things.
+
+         A VSCP event object have thew following content
+<pre>
+{
+    vscpHead: 3,
+    vscpClass: 10,
+    vscpType: 6,
+    vscpObId: 0,
+    vscpTimeStamp: 0,
+    vscpDateTime: 2020-02-11T17:00:02.000Z,
+    vscpGuid: 'FF:FF:FF:FF:FF:FF:FF:FE:B8:27:EB:40:59:96:00:01',
+    vscpData: [ 1,2,3,4,5 ]
+}
+</pre> 
+
+    <p><b>vscpTimeStamp</b>, <b>vscpObId</b> and <b>vscpDateTime</b> and be omitted and 
+        will still automatically get meaningful defaults. <b>vscpHead</b> can also often 
+        be omitted and if so will then be set to zero. <b>vscpGuid/b> can be set to '-' 
+        to be set to the GUID of <b>remote interface</b> which is enough to identify a 
+        common client. See <a href="https://docs.vscp.org/spec/latest">VSCP Specification</a> for VSCP class/type's and 
+        data content.</p>
+     
+    <h3>References</h3>
+         <ul>
+             <li><a>https://docs.vscp.org/vscpd/latest/#/./tcp_ip_protocol_description</a> - full description of <code>VSCP tcp/ip link</code> protocol</li>
+             <li><a>https://docs.vscp.org/</a> - documentation for VSCP</li>
+             <li><a>https://github.com/grodansparadis/node-red-contrib-vscp-tcp</a> - the nodes github repository</li>
+             <li><a>https://www.vscp.org/</a> - home of VSCP</li>
+         </ul>
+    </script>
+    

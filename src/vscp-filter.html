@@ -82,3 +82,120 @@ SOFTWARE.
         <input type="text" id="node-config-input-mask_guid">
     </div>
 </script>
+
+<script type="text/x-red" data-help-name="vscp-filter">
+    <p>Define a VSCP event filter for a connection.
+    A VSCP event filter makes it possible to only receive a
+    subset of the events that flows through an interface. It is
+    possible to filter events on priority, VSCP class, VSCP type 
+    and GUID.</p>
+    <p>All values can be entered as decimal, hexadecimal, octal or binary 
+    values. A hexadecimal, octal value or a binary value should be 
+    preceded by '0x', '0o' respectively '0b'.</p>
+
+    <h3>Name</h3>
+        <dl class="message-properties">
+            Set the name to a useful description of the filter.
+        </dl>
+
+    <h3>Priority</h3>
+        <dl class="message-properties">
+            Makes it possible to filter out events with a specific priority.
+            Highest priority is 0 and lowest is 7. Set mask to all ones (7) and
+            filter to the wanted priority to receive only events with that specific priority.
+
+            <dt>Filter<span class="property-type">string</span></dt>
+            <dd> 
+                Filter for priority. Can be a value between 0-7. 
+            </dd>
+            
+            <dt>Mask<span class="property-type">string</span></dt>
+            <dd> 
+                Mask for priority. One byte.
+            </dd>
+        </dl>
+    
+     <h3>VSCP Class</h3>
+        <dl class="message-properties">        
+            Makes it possible to filter out events with a specific VSCP class.
+            A VSCP class is value in the range 0-512 for a Level I event and 0-65535 
+            for a level II event. Set mask to all ones (0xffff) and
+            filter to the wanted VSCP class to receive only events with that 
+            specific VSCP class.
+
+            <dt>Filter<span class="property-type">string</span></dt>
+            <dd> 
+                Filter for VSCP class. A class is value in the range 0-512 for a 
+                Level I event and 0-65535 for a level II event. 
+            </dd>
+            
+            <dt>Mask<span class="property-type">string</span></dt>
+            <dd> 
+                Mask for VSCP class. 16-bits.
+            </dd>     
+        </dl>
+
+    <h3>VSCP Type</h3>
+        <dl class="message-properties">        
+            Makes it possible to filter out events with a specific VSCP type.
+            A VSCP type has a value in the range 0-255 for a Level I event and 0-65535 
+            for a level II event. Set mask to all ones (0xffff) and
+            filter to the wanted VSCP type to receive only events with that 
+            specific VSCP type.
+
+            <dt>Filter<span class="property-type">string</span></dt>
+            <dd> 
+                Filter for VSCP type. A VSCP type is value in the range 0-255 for a 
+                Level I event and 0-65535 for a level II event. 
+            </dd>
+            
+            <dt>Mask<span class="property-type">string</span></dt>
+            <dd> 
+                Mask for VSCP type. 16-bits.
+            </dd>     
+        </dl>
+
+    <h3>VSCP GUID</h3>
+        <dl class="message-properties">        
+            Makes it possible to filter out events with a specific GUID
+            (Global Unique ID).
+
+            <dt>Filter<span class="property-type">string</span></dt>
+            <dd> 
+                Filter for GUID. A GUID is entered on the form
+                00:01:02:03:04:05:06:07:08:09:0a:0b:0c:0d:0e:0f where each
+                colon separated digit pair is a hexadecimal value with the mask_priority
+                significant byte in the first position. Together (16 bytes) they form a 
+                128-bit unique number that is used in VSCP as an id for devices.
+            </dd>
+            
+            <dt>Mask<span class="property-type">string</span></dt>
+            <dd> 
+                Mask for GUID. The mask should be entered on the same for as the filter. 
+                Set to all zeros for a don't care (00:00:00....) and to all ones (ff:ff:ff...)
+                to receive only events with a specific GUID set in the GUID filter.
+            </dd>     
+        </dl>  
+
+    <h3>Details</h3>
+        <p>The filter object consist of pairs of filter-bits and 
+        mask-bits. The mask-bits tell which bits of the filter-bits that 
+        should be checked (and have the same value as the events bit at that position) 
+        when the event filter is evaluated.</p>
+        <p>If you for example just want to receive a specific VSCP class  
+        you set that class in the vscp_class_filter and set all bits in the 
+        corresponding VSCP class mask_to all ones.</p>
+        <p>Generally a mask should have a one in a bit position at the same 
+        place as a bit in the filter has the required value for that bit. Setting
+        a bit position to zero in the mask is therefore a don't care for that bit
+        position.</p>
+    
+    <h3>References</h3>
+        <ul>
+            <li><a>https://docs.vscp.org/vscpd/latest/#/./tcp_ip_protocol_description?id=tcpip-setfilter</a> - full description of <code>event filters</code> </li>
+            <li><a>https://docs.vscp.org/</a> - documentation for VSCP</li>
+            <li><a>https://github.com/grodansparadis/node-red-contrib-vscp-tcp</a> - the nodes github repository</li>
+            <li><a>https://www.vscp.org/</a> - home of VSCP</li>
+        </ul>
+    </script>
+    

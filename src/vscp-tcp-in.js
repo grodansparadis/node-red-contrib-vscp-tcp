@@ -29,16 +29,22 @@
 // SOFTWARE.
 //
 
+// Debug:
+// export NODE_DEBUG=node-vscp-tcp-in
+
 const path = require('path');
 
 // const hlp = require(path.join(__dirname, '/lib/dateTimeHelper.js'));
 // https://nodejs.org/api/util.html
+// NODE_DEBUG=node-vscp-vscp-tcp*  for all debug events
+// NODE_DEBUG=node-vscp-vscp-tcp-in  for debug events from this module
 const util = require('util');
+const debuglog = util.debuglog('node-vscp-tcp-in');
 
 const vscp_class = require('node-vscp-class');
 const vscp_type = require('node-vscp-type');
 const vscp = require('node-vscp');
-const client = require('node-vscp-tcp');
+const vscp_tcp_client = require('node-vscp-tcp');
 
 module.exports = function(RED) {
   'use strict';
@@ -61,9 +67,13 @@ module.exports = function(RED) {
     this.id = config.id;
     this.interface = config.interface || '';
 
+    debuglog("Username: "+this.username);
+
     // Retrieve the config node
     this.host = RED.nodes.getNode(config.host);
+    debuglog("Host: "+this.host.name);
     this.filter = RED.nodes.getNode(config.filter);
+    debuglog("Filter: "+this.filter);
 
     // Config node state
     this.connected = false;
@@ -82,10 +92,116 @@ module.exports = function(RED) {
       // No config node configured
     }
 
-    //node.users[id].status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
-    node.log(RED._("vscp.state.disconnected",{broker:(node.clientid?node.clientid+"@":"")+node.name}));
+    this.connecting = true;
+    this.status({fill:"yellow",shape:"dot",text:"node-red:common.status.connecting..."});
+    //debuglog(RED._("vscp.state.disconnected",{broker:(node.clientid?node.clientid+"@":"")+node.name}));
+    debuglog('Connecting to VSCP server on port: ' + this.host.name + " "+this.host.host+":"+this.host.port);
 
-    node.log('Connecting to VSCP server on port: ' + this.host.name);
+    let vscpclient = new vscp_tcp_client(); 
+
+    vscpclient.addEventListener((e) => {
+      //debuglog("Event:",e);
+      var msg = { payload:e }
+      this.send(msg);
+    });
+
+    vscpclient.on('connect', function() {
+      debuglog("---------------- CONNECT -------------------");
+      node.status({fill:"yellow",shape:"dot",text:"connecting..."});
+    });
+
+    vscpclient.on('disconnect', function() {
+      debuglog("---------------- DISCONNECT -------------------");
+      node.status({fill:"red",shape:"dot",text:"disconnected"});
+    });
+
+    vscpclient.on('timeout', function() {
+      debuglog("---------------- TIMEOUT -------------------");
+      node.status({fill:"red",shape:"dot",text:"timeout"});
+    });
+
+    vscpclient.on('error', function() {
+      debuglog("---------------- ERROR -------------------");
+      node.status({fill:"red",shape:"dot",text:"error"});
+      /*if (err) {
+        if (done) {
+            // Node-RED 1.0 compatible
+            done(err);
+        } else {
+            // Node-RED 0.x compatible
+            node.error(err, msg);
+        }
+      }*/
+    });
+
+    this.on('close', function() {
+      debuglog("---------------- node-red CLOSE -------------------");
+      const testAsync = async () => {
+        await vscpclient.disconnect();
+      }
+      testAsync().catch(err => {
+        debuglog("Catching disconnect error");
+        debuglog(err);
+      })
+    });
+
+    let strResponse = "";
+    const testAsync = async () => {
+      // Connect to VSCP server/device
+      const value1 = await vscpclient.connect(
+      {
+        host: this.host.host,
+        port: this.host.port,
+        timeout: this.host.timeout
+      });
+
+      // Send no operation command (does nothing)
+      await vscpclient.sendCommand(
+      {
+        command: "noop"
+      })
+
+      // Log on to server (step 1 user name)
+      // The response object is returned and logged
+      const userResponse = await vscpclient.sendCommand(
+      {
+        command: "user",
+        argument: "admin"
+      });
+      debuglog(userResponse);
+
+      // Log on to server (step 2 password)
+      await vscpclient.sendCommand(
+      {
+        command: "pass",
+        argument: "secret"
+      });
+
+      // Send no operation command (does nothing)
+      strResponse = await vscpclient.sendCommand(
+      {
+        command: "noop"
+      })
+      debuglog(strResponse);
+
+      // Get channel id
+      strResponse = await vscpclient.getChannelID();
+      debuglog("ChannelID " + strResponse);
+
+      // Get channel id
+      strResponse = await vscpclient.getGUID();
+      debuglog("GUID " + strResponse);
+
+      strResponse = await vscpclient.startRcvLoop();
+      debuglog(strResponse);
+      
+      node.status({fill:"green",shape:"dot",text:"connected"});
+    }
+    testAsync().catch(err => {
+      debuglog("Catching error");
+      debuglog(err.message);
+      node.status({fill:"red",shape:"dot",text:"error: "+err.message});
+    })
   }
 
   ///////////////////////////////////////////////////////////////////////////
@@ -157,7 +273,7 @@ module.exports = function(RED) {
         initialize();
       } catch (err) {
         node.error(err.message);
-        node.log(util.inspect(err, Object.getOwnPropertyNames(err)));
+        debuglog(util.inspect(err, Object.getOwnPropertyNames(err)));
         node.status({
           fill: 'red',
           shape: 'ring',
@@ -174,4 +290,5 @@ module.exports = function(RED) {
       password: {type:"password"}
     }
   });
+
 };

@@ -61,7 +61,7 @@ SOFTWARE.
     </div>
     <div class="form-row">
         <label for="node-config-input-interface"><i class="fa fa-square"></i> Interface</label>
-        <input type="text" id="node-config-input-interface" placeholder="Optional GUID for i/f">
+        <input type="text" id="node-config-input-interface" placeholder="Optional GUID for remote i/f">
     </div>
     <div class="form-row">
         <label style="margin-left: 100px; width: 70%">
@@ -86,3 +86,54 @@ SOFTWARE.
         </label>
     </div>
 </script>
+
+<script type="text/x-red" data-help-name="vscp-tcp-host">
+    <p>
+        Settings here defines properties for one VSCP tcp/ip remote hosts.
+    </p>
+    
+    <h3>Properties</h3>
+        <dl class="message-properties">
+
+            <dt>Name <span class="property-type">string</span></dt>
+            <dd> Enter a descriptive name for the host here. This name is what you 
+                use to select this host later. </dd>
+
+            <dt class="optional">Host <span class="property-type">number</span></dt>
+            <dd> IP address or url for remote VSCP host. Default is 'localhost' </dd> 
+   
+            <dt class="optional">Port <span class="property-type">number</span></dt>
+            <dd> Port to use. Default is 9598. </dd>
+
+            <dt class="optional">Timeout <span class="property-type">number</span></dt>
+            <dd> Enter connection timeout here. Default is 10000 ms. </dd>
+
+            <dt class="optional">Interface <span class="property-type">number</span></dt>
+            <dd> If connection to a specific interface on the remote host is needed This
+                interface GUID should be entered here. Default is none. </dd>
+
+            <dt class="optional">Use TSL <span class="property-type">number</span></dt>
+            <dd> Mark to use TSL for the connection. Default is no TSL. </dd>  
+            
+            <dt class="optional">Try to keep connection alive <span class="property-type">number</span></dt>
+            <dd> Mark to enable automatic reconnect if the host connection fails. Default 
+                is no automatic reconnect.</dd> 
+
+        </dl>
+    
+     
+    <h3>Details</h3>
+        <p>Settings here defines properties for one VSCP tcp/ip remote hosts. 
+            This is hardware devices that export the VSCP tcp/ip link protocol 
+            or software devices, like the <a href="https://docs.vscp.org/#vscpd">VSCP daemon</a>, 
+            which have a compatible but have an extended tcp/ip interface.</p>
+    
+    <h3>References</h3>
+        <ul>
+            <li><a>https://docs.vscp.org/</a> - full description of <code>VSCP tcp/ip link</code> protocol</li>
+            <li><a>https://docs.vscp.org/</a> - documentation for VSCP</li>
+            <li><a>https://github.com/grodansparadis/node-red-contrib-vscp-tcp</a> - the nodes github repository</li>
+            <li><a>https://www.vscp.org/</a> - home of VSCP</li>
+        </ul>
+    </script>
+    

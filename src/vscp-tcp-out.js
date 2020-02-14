@@ -29,10 +29,17 @@
 // SOFTWARE.
 //
 
+// Debug:
+// export NODE_DEBUG=node-vscp-tcp-out
+
 const path = require('path');
 
 // const hlp = require(path.join(__dirname, '/lib/dateTimeHelper.js'));
+// https://nodejs.org/api/util.html
+// NODE_DEBUG=node-vscp-vscp-tcp*  for all debug events
+// NODE_DEBUG=node-vscp-vscp-tcp-out  for debug events from this module
 const util = require('util');
+const debuglog = util.debuglog('node-vscp-tcp-out');
 
 module.exports = function(RED) {
   'use strict';

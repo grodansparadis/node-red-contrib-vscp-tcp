@@ -41,3 +41,4 @@ module.exports = function(RED) {
     }
     RED.nodes.registerType("vscp-tcp-host",VscpTcpHostNode);
 }
+
