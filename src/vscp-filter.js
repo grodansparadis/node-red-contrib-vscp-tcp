@@ -33,12 +33,14 @@ module.exports = function(RED) {
     function VscpFilterNode(config) {
         RED.nodes.createNode(this,config);
         this.name = config.name;
-        this.filter_priority = config.filter_priority;
-        this.mask_priority = config.mask_priority;
-        this.filter_vscp_class = config.filter_vscp_class;
-        this.mask_vscp_class = config.mask_vscp_class;
-        this.filter_vscp_type = config.filter_vscp_type;
-        this.mask_vscp_type = config.mask_vscp_type;
+        this.filterPriority = config.filterPriority;
+        this.maskPriority = config.maskPriority;
+        this.filterClass = config.filterClass;
+        this.maskClass = config.maskClass;
+        this.filterType = config.filterType;
+        this.maskType = config.maskType;
+        this.filterGuid = config.filterGuid;
+        this.maskGuid = config.maskGuid;
     }
     RED.nodes.registerType("vscp-filter",VscpFilterNode);
 }

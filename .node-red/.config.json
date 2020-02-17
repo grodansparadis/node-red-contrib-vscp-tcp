@@ -425,8 +425,8 @@
   },
   "node-red-node-tail": {
    "name": "node-red-node-tail",
-   "version": "0.0.3",
-   "local": false,
+   "version": "0.1.1",
+   "local": true,
    "nodes": {
     "tail": {
      "name": "tail",
@@ -434,9 +434,321 @@
       "tail"
      ],
      "enabled": true,
-     "local": false,
+     "local": true,
      "module": "node-red-node-tail",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/node_modules/node-red-node-tail/28-tail.js"
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-node-tail/28-tail.js"
+    }
+   }
+  },
+  "node-red-dashboard": {
+   "name": "node-red-dashboard",
+   "version": "2.19.4",
+   "local": true,
+   "nodes": {
+    "ui_base": {
+     "name": "ui_base",
+     "types": [
+      "ui_base"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_base.js"
+    },
+    "ui_button": {
+     "name": "ui_button",
+     "types": [
+      "ui_button"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_button.js"
+    },
+    "ui_dropdown": {
+     "name": "ui_dropdown",
+     "types": [
+      "ui_dropdown"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_dropdown.js"
+    },
+    "ui_switch": {
+     "name": "ui_switch",
+     "types": [
+      "ui_switch"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_switch.js"
+    },
+    "ui_slider": {
+     "name": "ui_slider",
+     "types": [
+      "ui_slider"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_slider.js"
+    },
+    "ui_numeric": {
+     "name": "ui_numeric",
+     "types": [
+      "ui_numeric"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_numeric.js"
+    },
+    "ui_text_input": {
+     "name": "ui_text_input",
+     "types": [
+      "ui_text_input"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_text_input.js"
+    },
+    "ui_date_picker": {
+     "name": "ui_date_picker",
+     "types": [
+      "ui_date_picker"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_date_picker.js"
+    },
+    "ui_colour_picker": {
+     "name": "ui_colour_picker",
+     "types": [
+      "ui_colour_picker"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_colour_picker.js"
+    },
+    "ui_form": {
+     "name": "ui_form",
+     "types": [
+      "ui_form"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_form.js"
+    },
+    "ui_text": {
+     "name": "ui_text",
+     "types": [
+      "ui_text"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_text.js"
+    },
+    "ui_gauge": {
+     "name": "ui_gauge",
+     "types": [
+      "ui_gauge"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_gauge.js"
+    },
+    "ui_chart": {
+     "name": "ui_chart",
+     "types": [
+      "ui_chart"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_chart.js"
+    },
+    "ui_audio": {
+     "name": "ui_audio",
+     "types": [
+      "ui_audio"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_audio.js"
+    },
+    "ui_toast": {
+     "name": "ui_toast",
+     "types": [
+      "ui_toast"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_toast.js"
+    },
+    "ui_ui_control": {
+     "name": "ui_ui_control",
+     "types": [
+      "ui_ui_control"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_ui_control.js"
+    },
+    "ui_template": {
+     "name": "ui_template",
+     "types": [
+      "ui_template"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_template.js"
+    },
+    "ui_link": {
+     "name": "ui_link",
+     "types": [
+      "ui_link"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_link.js"
+    },
+    "ui_tab": {
+     "name": "ui_tab",
+     "types": [
+      "ui_tab"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_tab.js"
+    },
+    "ui_group": {
+     "name": "ui_group",
+     "types": [
+      "ui_group"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_group.js"
+    },
+    "ui_spacer": {
+     "name": "ui_spacer",
+     "types": [
+      "ui_spacer"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-dashboard",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_spacer.js"
+    }
+   }
+  },
+  "node-red-contrib-dashboard-sum-bars": {
+   "name": "node-red-contrib-dashboard-sum-bars",
+   "version": "0.0.1",
+   "local": true,
+   "nodes": {
+    "sum-bars": {
+     "name": "sum-bars",
+     "types": [
+      "sum-bars"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-dashboard-sum-bars",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-dashboard-sum-bars/sum-bars.js"
+    }
+   }
+  },
+  "node-red-contrib-ui-led": {
+   "name": "node-red-contrib-ui-led",
+   "version": "0.3.1",
+   "local": true,
+   "nodes": {
+    "ui_led": {
+     "name": "ui_led",
+     "types": [
+      "ui_led"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-ui-led",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-ui-led/led.js"
+    }
+   }
+  },
+  "node-red-contrib-ui-sys-loft": {
+   "name": "node-red-contrib-ui-sys-loft",
+   "version": "0.1.1",
+   "local": true,
+   "nodes": {
+    "ui_device_info": {
+     "name": "ui_device_info",
+     "types": [
+      "ui_device_info"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-ui-sys-loft",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-ui-sys-loft/ui_device_info/ui_device_info.js"
+    },
+    "ui_device_edit_settings": {
+     "name": "ui_device_edit_settings",
+     "types": [
+      "ui_device_edit_settings"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-ui-sys-loft",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-ui-sys-loft/ui_device_edit_settings/ui_device_edit_settings.js"
+    }
+   }
+  },
+  "node-red-node-ui-list": {
+   "name": "node-red-node-ui-list",
+   "version": "0.2.5",
+   "local": true,
+   "nodes": {
+    "ui_list": {
+     "name": "ui_list",
+     "types": [
+      "ui_list"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-node-ui-list",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-node-ui-list/ui_list.js"
+    }
+   }
+  },
+  "node-red-node-ui-table": {
+   "name": "node-red-node-ui-table",
+   "version": "0.2.1",
+   "local": true,
+   "nodes": {
+    "ui_table": {
+     "name": "ui_table",
+     "types": [
+      "ui_table"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-node-ui-table",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-node-ui-table/node.js"
     }
    }
   }

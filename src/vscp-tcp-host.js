@@ -30,15 +30,19 @@
 //
 
 module.exports = function(RED) {
+    
     function VscpTcpHostNode(config) {
+    
         RED.nodes.createNode(this,config);
+    
         this.host = config.host;
         this.port = config.port;
         this.timeout = config.timeout;
         this.interface = config.interface;
         this.keepalive = config.keepalive;
-        this.usetsl = config.usetsl;
+        this.usetls = config.usetls;
     }
+
     RED.nodes.registerType("vscp-tcp-host",VscpTcpHostNode);
 }
 

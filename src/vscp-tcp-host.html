@@ -33,7 +33,7 @@ SOFTWARE.
             port: {value:9598,required:true,validate:RED.validators.number()},
             timeout: {value:10000,required:true,validate:RED.validators.number()},
             interface: {value:""},
-            usetsl: { value: 0 },
+            usetls: { value: 0 },
             keepalive: { value: 0 },
         },
         label: function() {
@@ -57,32 +57,25 @@ SOFTWARE.
     </div>
     <div class="form-row">
         <label for="node-config-input-timeout"><i class="fa fa-square"></i> Timeout</label>
-        <input type="text" id="node-config-input-timeout">
+        <input type="number" id="node-config-input-timeout">
     </div>
     <div class="form-row">
         <label for="node-config-input-interface"><i class="fa fa-square"></i> Interface</label>
         <input type="text" id="node-config-input-interface" placeholder="Optional GUID for remote i/f">
     </div>
     <div class="form-row">
-        <label style="margin-left: 100px; width: 70%">
-            <input
-                type="checkbox"
-                id="node-input-usetsl"
-                placeholder=""
-                style="width: 20px; margin: -4px 0 0 0;"
-            />
-            Use TSL
-        </label>
+        <label for="node-config-input-keepalive"><i class="fa fa-square" style="width: 20px"></i> Keepalive</label>
+        <input type="number" size="10" id="node-config-input-keepalive" placeholder="0">
     </div>
     <div class="form-row">
         <label style="margin-left: 100px; width: 70%">
             <input
                 type="checkbox"
-                id="node-input-keepalive"
+                id="node-input-usetls"
                 placeholder=""
                 style="width: 20px; margin: -4px 0 0 0;"
             />
-            Try to keep connection alive
+            Use TLS
         </label>
     </div>
 </script>
@@ -112,8 +105,8 @@ SOFTWARE.
             <dd> If connection to a specific interface on the remote host is needed This
                 interface GUID should be entered here. Default is none. </dd>
 
-            <dt class="optional">Use TSL <span class="property-type">number</span></dt>
-            <dd> Mark to use TSL for the connection. Default is no TSL. </dd>  
+            <dt class="optional">Use TLS <span class="property-type">number</span></dt>
+            <dd> Mark to use TLS for the connection. Default is no TLS. </dd>  
             
             <dt class="optional">Try to keep connection alive <span class="property-type">number</span></dt>
             <dd> Mark to enable automatic reconnect if the host connection fails. Default 

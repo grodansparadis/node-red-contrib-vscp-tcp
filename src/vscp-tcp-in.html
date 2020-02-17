@@ -32,7 +32,8 @@ SOFTWARE.
             host: {value:"", type:"vscp-tcp-host", required:true},
             username: {value:"admin", required:true},
             password: {value:"secret", required:true},
-            filter: {value:"", type:"vscp-filter", required:false}
+            filter: {value:"", type:"vscp-filter", required:false},
+            context: {value:"", required:false},
         },
         credentials: {
             username: {type:"text"},
@@ -73,6 +74,14 @@ SOFTWARE.
         <label for="node-input-filter"><i class="fa fa-filter"></i> Filter</label>
         <input id="node-input-filter" placeholder="">
     </div>
+    <div class="form-row">
+        <label for="node-input-context"><i class="fa fa-tag"></i> Context</label>
+        <input type="text" id="node-input-context" placeholder="Context">
+    </div>
+    <div class="form-row">
+        <label for="node-input-context"><i class="fa fa-tag"></i> Context</label>
+        <input type="text" id="node-input-context" placeholder="Context">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="vscp-tcp-in">
@@ -80,18 +89,19 @@ SOFTWARE.
         VSCP tcp/ip link protocol to get events from the host.</p>
 
     <h3>Inputs</h3>
-        <dl class="message-properties">
-            <dt>payload
-                <span class="property-type">object | string</span>
-            </dt>
-            <dd> the payload is the event to publish to the remote 
-                VSCP host. </dd>
-        </dl>
+      <ol class="node-ports">
+        This node has no input(s).
+      </ol>
+        
     
      <h3>Outputs</h3>
-         <ol class="node-ports">
-             This node has no outputs.
-         </ol>
+       <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">object</span>
+        </dt>
+        <dd> the payload is the JSON cfoded event received from the remote 
+            VSCP host. See details below for format.</dd>
+      </dl>
     
     <h3>Details</h3>
          The VSCP tcp/ip link interface is an interface that allows a remote
@@ -99,7 +109,7 @@ SOFTWARE.
          the VSCP daemon. The interface allows for filtering and for sending AND
          receiving VSCP events among many other things.
 
-         A VSCP event object have thew following content
+         A VSCP JSON event object have thew following content
 <pre>
 {
     vscpHead: 3,
@@ -113,13 +123,25 @@ SOFTWARE.
 }
 </pre> 
 
-    <p><b>vscpTimeStamp</b>, <b>vscpObId</b> and <b>vscpDateTime</b> and be omitted and 
+    <p><b>vscpTimeStamp</b>, <b>vscpObId</b> and <b>vscpDateTime</b> can be omitted and 
         will still automatically get meaningful defaults. <b>vscpHead</b> can also often 
-        be omitted and if so will then be set to zero. <b>vscpGuid/b> can be set to '-' 
-        to be set to the GUID of <b>remote interface</b> which is enough to identify a 
+        be omitted and if so will be set to zero. <b>vscpGuid/b> can be set to '-' 
+        to be initialized to the GUID of <b>remote interface</b> which is enough to identify a 
         common client. See <a href="https://docs.vscp.org/spec/latest">VSCP Specification</a> for VSCP class/type's and 
         data content.</p>
+
+    <p>Set a filter to just get the events you really is interested in from the remote host.</p> 
      
+    <p>Set a unique <b>context<(b>) if you want a sending and receiving VSCP node to work together. You 
+        set the same context in both the in and the out node. This will prevent the input node from 
+        receiving events sent through the output node. Context is defined on a flow level and therefore
+        nodes relaying on this functionality must be placed the same flow/tab. 
+    </p>
+
+    <p>If context is set to 'name' then <b>name.chid</b> will hold the channel id, <b>name.guid will hold the 
+        GUID</b> for the channel and <b>name.alive</b> will hold the time for the last event or sync message from the 
+    remote node. Data that can be reached from function nodes or the choice node.</p>
+
     <h3>References</h3>
          <ul>
              <li><a>https://docs.vscp.org/vscpd/latest/#/./tcp_ip_protocol_description</a> - full description of <code>VSCP tcp/ip link</code> protocol</li>

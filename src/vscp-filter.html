@@ -29,14 +29,14 @@ SOFTWARE.
         category: 'config',
         defaults: {
             name: {value:"",required:true},
-            filter_priority: {value:"0"},
-            mask_priority: {value:"0x00"},
-            filter_vscp_class: {value:"0"},
-            mask_vscp_class: {value:"0x0000"},
-            filter_vscp_type: {value:"0"},
-            mask_vscp_type: {value:"0x0000"},
-            filter_guid: {value:"00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"},
-            mask_guid: {value:"00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"},
+            filterPriority: {value:"0"},
+            maskPriority: {value:"0x00"},
+            filterClass: {value:"0"},
+            maskClass: {value:"0x0000"},
+            filterType: {value:"0"},
+            maskType: {value:"0x0000"},
+            filterGuid: {value:"00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"},
+            maskGuid: {value:"00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"},
         },
         label: function() {
             return this.name;
@@ -51,35 +51,35 @@ SOFTWARE.
     </div>
     <div class="form-row">
         <label for="node-config-input-filter_priority"><i class="fa fa-filter"></i> Filter Priority</label>
-        <input type="text" id="node-config-input-filter_priority">
+        <input type="text" id="node-config-input-filterPriority">
     </div>
     <div class="form-row">
         <label for="node-config-input-mask_priority"><i class="fa fa-filter"></i> Mask Priority</label>
-        <input type="text" id="node-config-input-mask_priority">
+        <input type="text" id="node-config-input-maskPriority">
     </div>
     <div class="form-row">
-        <label for="node-config-input-filter_vscp_class"><i class="fa fa-filter"></i> Filter Class</label>
-        <input type="text" id="node-config-input-filter_vscp_class">
+        <label for="node-config-input-filterClass"><i class="fa fa-filter"></i> Filter Class</label>
+        <input type="text" id="node-config-input-filterClass">
     </div>
     <div class="form-row">
-        <label for="node-config-input-mask_vscp_class"><i class="fa fa-filter"></i> Mask Class</label>
-        <input type="text" id="node-config-input-mask_vscp_class">
+        <label for="node-config-input-maskClass"><i class="fa fa-filter"></i> Mask Class</label>
+        <input type="text" id="node-config-input-maskClass">
     </div>
     <div class="form-row">
-        <label for="node-config-input-filter_vscp_type"><i class="fa fa-filter"></i> Filter Type</label>
-        <input type="text" id="node-config-input-filter_vscp_type">
+        <label for="node-config-input-filterType"><i class="fa fa-filter"></i> Filter Type</label>
+        <input type="text" id="node-config-input-filterType">
     </div>
     <div class="form-row">
-        <label for="node-config-input-mask_vscp_type"><i class="fa fa-filter"></i> Mask Type</label>
-        <input type="text" id="node-config-input-mask_vscp_type">
+        <label for="node-config-input-maskType"><i class="fa fa-filter"></i> Mask Type</label>
+        <input type="text" id="node-config-input-maskType">
     </div>
     <div class="form-row">
-        <label for="node-config-input-filter_guid"><i class="fa fa-filter"></i> Filter GUID</label>
-        <input type="text" id="node-config-input-filter_guid">
+        <label for="node-config-input-filterGuid"><i class="fa fa-filter"></i> Filter GUID</label>
+        <input type="text" id="node-config-input-filterGuid">
     </div>
     <div class="form-row">
-        <label for="node-config-input-mask_guid"><i class="fa fa-filter"></i> Mask GUID</label>
-        <input type="text" id="node-config-input-mask_guid">
+        <label for="node-config-input-maskGuid"><i class="fa fa-filter"></i> Mask GUID</label>
+        <input type="text" id="node-config-input-maskGuid">
     </div>
 </script>
 

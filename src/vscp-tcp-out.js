@@ -54,28 +54,34 @@ module.exports = function(RED) {
     // Create the tcp/ip output node
     RED.nodes.createNode(this, config);
 
-    // Retrieve the config node
-    this.positionConfig = RED.nodes.getNode(config.positionConfig);
-    this.topic = config.topic || '';
-    this.rules = config.rules || [];
-    this.azimuthPos = {};
-    this.start = config.start;
-    this.startType = config.startType || 'none';
-    this.startOffset = config.startOffset || 0;
-    this.startOffsetType = config.startOffsetType || 'none';
-    this.startOffsetMultiplier = config.startOffsetMultiplier || 60;
-    this.end = config.end;
-    this.endType = config.endType || 'none';
-    this.endOffset = config.endOffset || 0;
-    this.endOffsetType = config.endOffsetType || 'none';
-    this.endOffsetMultiplier = config.endOffsetMultiplier || 60;
+    
 
     const node = this;
 
     // Send event to configured host
-    node.on('input', function(msg) {
+    node.on('input', function(msg, send, done) {
+      // If this is pre-1.0, 'send' will be undefined, so fallback to node.send
+      send = send || function() { node.send.apply(node,arguments) }
       msg.payload = msg.payload.toLowerCase();
-      node.send(msg);
+      send(msg);
+      done();
+      if (err) {
+        // Report back the error
+        if (done) {
+             // Use done if defined (1.0+)
+            done(err)
+        } else {
+            // Fallback to node.error (pre-1.0)
+            node.error(err, msg);
+        }
+      } else {
+        msg.payload = result;
+        send(msg);
+        // Check done exists (1.0+)
+        if (done) {
+            done();
+        }
+      }
     });
   }
   RED.nodes.registerType('vscp-tcp-out', vscpTcpOutputNode, {
