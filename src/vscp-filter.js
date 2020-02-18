@@ -29,16 +29,18 @@
 // SOFTWARE.
 //
 
+const vscp = require('node-vscp');
+
 module.exports = function(RED) {
     function VscpFilterNode(config) {
         RED.nodes.createNode(this,config);
         this.name = config.name;
-        this.filterPriority = config.filterPriority;
-        this.maskPriority = config.maskPriority;
-        this.filterClass = config.filterClass;
-        this.maskClass = config.maskClass;
-        this.filterType = config.filterType;
-        this.maskType = config.maskType;
+        this.filterPriority = vscp.readValue(config.filterPriority);
+        this.maskPriority = vscp.readValue(config.maskPriority);
+        this.filterClass = vscp.readValue(config.filterClass);
+        this.maskClass = vscp.readValue(config.maskClass);
+        this.filterType = vscp.readValue(config.filterType);
+        this.maskType = vscp.readValue(config.maskType);
         this.filterGuid = config.filterGuid;
         this.maskGuid = config.maskGuid;
     }
