@@ -25,7 +25,7 @@ SOFTWARE.
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('vscp-filter',{
+    RED.nodes.registerType('vscp-tcp-config-filter',{
         category: 'config',
         defaults: {
             name: {value:"",required:true},
@@ -44,7 +44,7 @@ SOFTWARE.
     });
 </script>
 
-<script type="text/html" data-template-name="vscp-filter">
+<script type="text/html" data-template-name="vscp-tcp-config-filter">
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-tag"></i> Filter name</label>
         <input type="text" id="node-config-input-name">
@@ -83,7 +83,7 @@ SOFTWARE.
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="vscp-filter">
+<script type="text/x-red" data-help-name="vscp-tcp-config-filter">
     <p>Define a VSCP event filter for a connection.
     A VSCP event filter makes it possible to only receive a
     subset of the events that flows through an interface. It is

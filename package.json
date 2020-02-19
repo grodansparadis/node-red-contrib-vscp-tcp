@@ -33,9 +33,10 @@
     },
     "dependencies": {
         "node-vscp": "^1.0.19",
-        "node-vscp-class": "^1.0.4",
+        "node-vscp-class": "^1.0.5",
         "node-vscp-tcp": "^1.0.7",
-        "node-vscp-type": "^1.0.4"
+        "node-vscp-type": "^1.0.5",
+        "util": "^0.12.1"
     },
     "devDependencies": {
         "chai": "^4.2.0",
@@ -51,8 +52,8 @@
         "nodes": {
             "vscp-tcp-in": "src/vscp-tcp-in.js",
             "vscp-tcp-out": "src/vscp-tcp-out.js",
-            "vscp-tcp-host": "src/vscp-tcp-host.js",
-            "vscp-filter": "src/vscp-filter.js"
+            "vscp-tcp-config-host": "src/vscp-tcp-config-host.js",
+            "vscp-tcp-config-filter": "src/vscp-tcp-config-filter.js"
         }
     }
 }

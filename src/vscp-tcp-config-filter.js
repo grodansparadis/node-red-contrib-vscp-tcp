@@ -32,7 +32,7 @@
 const vscp = require('node-vscp');
 
 module.exports = function(RED) {
-    function VscpFilterNode(config) {
+    function VscpFilterConfigNode(config) {
         RED.nodes.createNode(this,config);
         this.name = config.name;
         this.filterPriority = vscp.readValue(config.filterPriority);
@@ -44,5 +44,5 @@ module.exports = function(RED) {
         this.filterGuid = config.filterGuid;
         this.maskGuid = config.maskGuid;
     }
-    RED.nodes.registerType("vscp-filter",VscpFilterNode);
+    RED.nodes.registerType("vscp-tcp-config-filter",VscpFilterConfigNode);
 }

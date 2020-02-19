@@ -384,25 +384,25 @@
      "module": "node-red-contrib-vscp-tcp",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-tcp-out.js"
     },
-    "vscp-tcp-host": {
-     "name": "vscp-tcp-host",
+    "vscp-tcp-config-host": {
+     "name": "vscp-tcp-config-host",
      "types": [
-      "vscp-tcp-host"
+      "vscp-tcp-config-host"
      ],
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-vscp-tcp",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-tcp-host.js"
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-tcp-config-host.js"
     },
-    "vscp-filter": {
-     "name": "vscp-filter",
+    "vscp-tcp-config-filter": {
+     "name": "vscp-tcp-config-filter",
      "types": [
-      "vscp-filter"
+      "vscp-tcp-config-filter"
      ],
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-vscp-tcp",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-filter.js"
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-tcp-config-filter.js"
     }
    }
   },

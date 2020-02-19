@@ -25,7 +25,7 @@ SOFTWARE.
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('vscp-tcp-host',{
+    RED.nodes.registerType('vscp-tcp-config-host',{
         category: 'config',
         defaults: {
             name: {value:"",required:true},
@@ -42,7 +42,7 @@ SOFTWARE.
     });
 </script>
 
-<script type="text/html" data-template-name="vscp-tcp-host">
+<script type="text/html" data-template-name="vscp-tcp-config-host">
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-config-input-name">
@@ -80,7 +80,7 @@ SOFTWARE.
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="vscp-tcp-host">
+<script type="text/x-red" data-help-name="vscp-tcp-config-host">
     <p>
         Settings here defines properties for one VSCP tcp/ip remote hosts.
     </p>

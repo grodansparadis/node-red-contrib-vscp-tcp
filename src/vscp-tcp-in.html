@@ -29,10 +29,10 @@ SOFTWARE.
         category: 'network',
         defaults: {
             name: {value:"", required:true},
-            host: {value:"", type:"vscp-tcp-host", required:true},
+            host: {value:"", type:"vscp-tcp-config-host", required:true},
             username: {value:"admin", required:true},
             password: {value:"secret", required:true},
-            filter: {value:"", type:"vscp-filter", required:false},
+            filter: {value:"", type:"vscp-tcp-config-filter", required:false},
             context: {value:"", required:false},
         },
         credentials: {

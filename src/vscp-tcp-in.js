@@ -146,6 +146,11 @@ module.exports = function(RED) {
 
     this.on('close', function() {
       debuglog("---------------- node-red CLOSE -------------------");
+      if (removed) {
+        // This node has been deleted
+      } else {
+        // This node is being restarted
+      }
       const testAsync = async () => {
         await this.vscpclient.disconnect();
       }
@@ -154,7 +159,7 @@ module.exports = function(RED) {
         debuglog(err);
       })
     });
-    debuglog("----- 2 -----");
+
     function doConnect(client,options) {
 
       debuglog(options);

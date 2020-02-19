@@ -387,22 +387,22 @@
     "vscp-tcp-host": {
      "name": "vscp-tcp-host",
      "types": [
-      "vscp-tcp-host"
+      "vscp-tcp-config-host"
      ],
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-vscp-tcp",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-tcp-host.js"
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-tcp-config-host.js"
     },
     "vscp-filter": {
      "name": "vscp-filter",
      "types": [
-      "vscp-filter"
+      "vscp-config-filter"
      ],
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-vscp-tcp",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-filter.js"
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-config-filter.js"
     }
    }
   },
@@ -749,183 +749,6 @@
      "local": true,
      "module": "node-red-node-ui-table",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-node-ui-table/node.js"
-    }
-   }
-  },
-  "node-red-contrib-polymer": {
-   "name": "node-red-contrib-polymer",
-   "version": "0.0.22",
-   "local": true,
-   "nodes": {
-    "polymer_nav_site": {
-     "name": "polymer_nav_site",
-     "types": [
-      "polymer_nav_site"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/nav_site.js"
-    },
-    "polymer_nav_page": {
-     "name": "polymer_nav_page",
-     "types": [
-      "polymer_nav_page"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/nav_page.js"
-    },
-    "polymer_nav_group": {
-     "name": "polymer_nav_group",
-     "types": [
-      "polymer_nav_group"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/nav_group.js"
-    },
-    "polymer_nav_group_collapsible": {
-     "name": "polymer_nav_group_collapsible",
-     "types": [
-      "polymer_nav_group_collapsible"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/nav_group_collapsible.js"
-    },
-    "polymer_paper-toast": {
-     "name": "polymer_paper-toast",
-     "types": [
-      "polymer_paper-toast"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/paper-toast.js"
-    },
-    "polymer_template": {
-     "name": "polymer_template",
-     "types": [
-      "polymer_template"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/polymer_template.js"
-    },
-    "polymer_html": {
-     "name": "polymer_html",
-     "types": [
-      "polymer_html"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/polymer_html.js"
-    },
-    "polymer_external": {
-     "name": "polymer_external",
-     "types": [
-      "polymer_external"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/polymer_external.js"
-    },
-    "polymer_paper-button": {
-     "name": "polymer_paper-button",
-     "types": [
-      "polymer_paper-button"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/paper-button.js"
-    },
-    "polymer_paper-checkbox": {
-     "name": "polymer_paper-checkbox",
-     "types": [
-      "polymer_paper-checkbox"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/paper-checkbox.js"
-    },
-    "polymer_paper-toggle-button": {
-     "name": "polymer_paper-toggle-button",
-     "types": [
-      "polymer_paper-toggle-button"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/paper-toggle-button.js"
-    },
-    "polymer_paper-input": {
-     "name": "polymer_paper-input",
-     "types": [
-      "polymer_paper-input"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/paper-input.js"
-    },
-    "polymer_paper-dropdown": {
-     "name": "polymer_paper-dropdown",
-     "types": [
-      "polymer_paper-dropdown"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/paper-dropdown.js"
-    },
-    "polymer_paper-slider": {
-     "name": "polymer_paper-slider",
-     "types": [
-      "polymer_paper-slider"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/paper-slider.js"
-    },
-    "google_chart-gauge": {
-     "name": "google_chart-gauge",
-     "types": [
-      "google_chart-gauge"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/google_chart-gauge.js"
-    },
-    "canvas_radial-gauge": {
-     "name": "canvas_radial-gauge",
-     "types": [
-      "canvas_radial-gauge"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/canvas_radial-gauge.js"
-    },
-    "canvas_linear-gauge": {
-     "name": "canvas_linear-gauge",
-     "types": [
-      "canvas_linear-gauge"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-polymer",
-     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-polymer/nodes/canvas_linear-gauge.js"
     }
    }
   }

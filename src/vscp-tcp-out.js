@@ -54,8 +54,6 @@ module.exports = function(RED) {
     // Create the tcp/ip output node
     RED.nodes.createNode(this, config);
 
-    
-
     const node = this;
 
     // Send event to configured host
@@ -84,6 +82,15 @@ module.exports = function(RED) {
       }
     });
   }
+  this.on('close', function() {
+    debuglog("---------------- node-red CLOSE -------------------");
+    if (removed) {
+      // This node has been deleted
+    } else {
+      // This node is being restarted
+    }
+  });
+  
   RED.nodes.registerType('vscp-tcp-out', vscpTcpOutputNode, {
     credentials: {
       username: {type:"text"},

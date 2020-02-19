@@ -31,7 +31,7 @@
 
 module.exports = function(RED) {
     
-    function VscpTcpHostNode(config) {
+    function VscpTcpHostConfigNode(config) {
     
         RED.nodes.createNode(this,config);
     
@@ -43,6 +43,6 @@ module.exports = function(RED) {
         this.usetls = config.usetls;
     }
 
-    RED.nodes.registerType("vscp-tcp-host",VscpTcpHostNode);
+    RED.nodes.registerType("vscp-tcp-config-host",VscpTcpHostConfigNode);
 }
 
