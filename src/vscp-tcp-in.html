@@ -33,7 +33,7 @@ SOFTWARE.
             username: {value:"admin", required:true},
             password: {value:"secret", required:true},
             filter: {value:"", type:"vscp-tcp-config-filter", required:false},
-            context: {value:"", required:false},
+            keyctx: {value:"", required:false},
         },
         credentials: {
             username: {type:"text"},
@@ -75,12 +75,8 @@ SOFTWARE.
         <input id="node-input-filter" placeholder="">
     </div>
     <div class="form-row">
-        <label for="node-input-context"><i class="fa fa-tag"></i> Context</label>
-        <input type="text" id="node-input-context" placeholder="Context">
-    </div>
-    <div class="form-row">
-        <label for="node-input-context"><i class="fa fa-tag"></i> Context</label>
-        <input type="text" id="node-input-context" placeholder="Context">
+        <label for="node-input-keyctx"><i class="fa fa-tag"></i> Context key</label>
+        <input type="text" id="node-input-keyctx" placeholder="ctxkey">
     </div>
 </script>
 
@@ -92,7 +88,6 @@ SOFTWARE.
       <ol class="node-ports">
         This node has no input(s).
       </ol>
-        
     
      <h3>Outputs</h3>
        <dl class="message-properties">

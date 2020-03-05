@@ -62,13 +62,14 @@ module.exports = function(RED) {
     var flowContext = this.context().flow;
 
     // Retrieve the config node
-    this.timeout = parseInt(config.timeout) || 10000;
     this.username = this.credentials.username || "admin";
     this.password = this.credentials.password || "secret";
     this.tls = parseInt(config.tls) || 0;
     this.id = config.id; // Id for node from node-red
-    
-    this.context = config.context;
+    // The channel id is saved in flow context if a key to 
+    // save it under is entered. 
+    this.keyctx = config.keyctx;
+    debuglog("keyctx: ",this.keyctx, typeof this.keyctx);
 
     // Retrieve the config node
     this.host = RED.nodes.getNode(config.host);
@@ -81,6 +82,7 @@ module.exports = function(RED) {
     this.hostname =  this.host.name;         
     this.host = this.host.host || 'localhost';
     this.port = this.host.port || 9598;
+    this.timeout = this.host.timeout || 10000;
     this.interface = this.host.interface || '';
     this.keepalive = parseInt(this.host.keepalive) || 0;
 
@@ -88,6 +90,8 @@ module.exports = function(RED) {
     debuglog("VSCP filter node: " + this.filter.filterGuid);
 
     // Config node state
+    /* this.connTimeout = 0; */   // Timeout handle
+    this.connKeepAlive = 0; // Keepalive handle
     this.connected = false;
     this.connecting = false;
     this.closing = false;
@@ -98,51 +102,94 @@ module.exports = function(RED) {
 
     this.connecting = true;
     this.status({fill:"yellow",shape:"dot",text:"node-red:common.status.connecting..."});
-    //debuglog(RED._("vscp.state.disconnected",{broker:(node.clientid?node.clientid+"@":"")+node.name}));
-    debuglog('Connecting to VSCP server '  + 
+    
+    node.log('Connecting to VSCP server '  + 
               this.hostname + ' - '  + 
               this.host + ' on port: ' + ":" + 
               this.port);
 
     this.vscpclient = new vscp_tcp_client();
-    debuglog("----- 1 -----");
-    this.vscpclient.addEventListener((e) => {
-      debuglogmsg("Event:",e);
-      var msg = { payload:e }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // callback: addEventListener
+    //
+
+    this.vscpclient.addEventListener( (strEvent) => {
+      var msg = {};
+      var ev = new vscp.Event(strEvent);
+      debuglogmsg("---------------- EVENT -------------------");
+      debuglogmsg("Event:",ev.toJSONObj());
+      msg.payload = ev.toJSONObj();
       this.send(msg);
     });
 
+    ///////////////////////////////////////////////////////////////////////////
+    // callback: connect
+    //
+
     this.vscpclient.on('connect', function() {
       debuglog("---------------- CONNECT -------------------");
-      this.connected = true;
-      this.connecting = false;
+      node.connected = true;
+      node.connecting = false;
       node.status({fill:"yellow",shape:"dot",text:"connecting..."});
+      /* clearTimeout(node.connTimeout); */
     });
+
+    ///////////////////////////////////////////////////////////////////////////
+    // callback: disconnect
+    //
 
     this.vscpclient.on('disconnect', function() {
       debuglog("---------------- DISCONNECT -------------------");
-      this.connected = false;
-      this.connecting = false;
+      node.connected = false;
+      node.connecting = false;
       node.status({fill:"red",shape:"dot",text:"disconnected"});
     });
 
+    ///////////////////////////////////////////////////////////////////////////
+    // callback: timeout
+    //
+
     this.vscpclient.on('timeout', function() {
       debuglog("---------------- TIMEOUT -------------------");
-      this.connected = false;
-      this.connecting = false;
+      node.connected = false;
+      node.connecting = false;
       node.status({fill:"red",shape:"dot",text:"timeout"});
     });
 
+    ///////////////////////////////////////////////////////////////////////////
+    // alive
+    //
+
     // Signal that connection is alive when in rcvloop mode
     this.vscpclient.on('alive', function() {
-      debuglog("---------------- ALIVE -------------------");      
+      debuglogmsg("---------------- ALIVE -------------------"); 
+      if ('string' === typeof node.keyctx ) {
+        flowContext.set(node.keyctx+".alive", new Date() );
+      }
+      
+      clearTimeout(timeoutHandle);
+
+      timeoutHandle =  setInterval( () => {
+        console.log("-----------------> Reconnecting!")
+        conn();
+      }, node.keepalive || 5000 );
+
     });
+
+    ///////////////////////////////////////////////////////////////////////////
+    // callback: error
+    //
 
     this.vscpclient.on('error', function(err) {
       debuglog("---------------- ERROR -------------------");
-      node.status({fill:"red",shape:"dot",text:"error"});
+      node.status({fill:"red",shape:"dot",text:"error "+err.message});
       node.error(err, err.message); 
     });
+
+    ///////////////////////////////////////////////////////////////////////////
+    // callback: close
+    //
 
     this.on('close', function() {
       debuglog("---------------- node-red CLOSE -------------------");
@@ -157,25 +204,34 @@ module.exports = function(RED) {
       testAsync().catch(err => {
         debuglog("Catching disconnect error");
         debuglog(err);
+        node.error(err, err.message);
       })
     });
+
+    ///////////////////////////////////////////////////////////////////////////
+    // doConnect
+    //
 
     function doConnect(client,options) {
 
       debuglog(options);
 
+      /* node.connTimeout = setTimeout(() => {
+        debuglog('Connection timeout.');
+      }, options.timeout); */
+
       let response = {};  // Command response object
       const testAsync = async () => {
 
         // Connect to VSCP server/device
-        console.log("Connect");
+        debuglog("Connect");
         response = await client.connect(
         {
           host: options.host,
           port: options.port,
           timeout: options.timeout
         });
-        debuglog(response, typeof response);
+        debuglog("response: "+response);
         if ( 'success' !== response.result ) {
           throw new Error("Failed to connect to VSCP host.");
         }
@@ -187,7 +243,7 @@ module.exports = function(RED) {
           command: "user",
           argument: options.username
         });
-        debuglog(response);
+        debuglog("response: "+response);
 
         // Log on to server (step 2 password)
         response = await client.sendCommand(
@@ -195,7 +251,7 @@ module.exports = function(RED) {
           command: "pass",
           argument: options.password
         });
-        debuglog(response);
+        debuglog("response: "+response);
 
         // Send no operation command (does nothing)
         response = await client.sendCommand(
@@ -206,28 +262,37 @@ module.exports = function(RED) {
 
         // Get channel id
         let chid = await client.getChannelID();
-        debuglog("ChannelID: " + chid);
+        debuglog("ChannelID: " + chid, options.keyctx);
+
 
         // Save channel id in a flow context
-        if (options.context.length) {
-          flowContext.set(options.context+".chid", chid )
+        if ('string' === typeof options.keyctx ) {
+          debuglog("Setting keyctx", chid, typeof chid );
+          flowContext.set(options.keyctx+".chid", chid );
+          flowContext.set(options.keyctx+".start", new Date() );
         }
-
 
         // Get channel GUID
         let guid = await client.getGUID();
-        debuglog("GUID: " + guid);
+        if ('string' === typeof options.keyctx) {
+          debuglog("GUID: " + guid);
+          flowContext.set(options.keyctx+".guid", guid );
+        }
 
         // Save channel GUID in a flow context
-        if (options.context.length) {
-          flowContext.set(options.context+".guid", guid )
+        if ('string' === typeof options.keyctx) {
+          flowContext.set(options.context +".guid", guid )
         }
 
         // set FILTER if defined
         if ( null != options.filter ) {
           
-          console.log("*********** Setting Filter ***********" + options.filter);
-          
+          debuglog("*********** Setting Filter ***********" );
+          debuglog(options.filter.filterPriority + " " +
+                   options.filter.filterClass + " " +
+                   options.filter.filterType + " " +
+                   options.filter.filterGuid);
+
           response = await client.setFilter({
             filterPriority: options.filter.filterPriority,
             filterClass: options.filter.filterClass,
@@ -236,7 +301,11 @@ module.exports = function(RED) {
           });
           debuglog(response);
 
-          console.log("*********** Setting Mask ***********" + options.filter.maskGuid);
+          debuglog("*********** Setting Mask ***********" );
+          debuglog(options.filter.maskPriority + " " +
+                   options.filter.maskClass + " " + 
+                   options.filter.maskType + " " +
+                   options.filter.maskGuid );
 
           response = await client.setMask({
             maskPriority: options.filter.maskPriority,
@@ -244,42 +313,48 @@ module.exports = function(RED) {
             maskType: options.filter.maskType,
             maskGuid: options.filter.maskGuid,
           });
-          debuglog(response);
+          debuglog("response: "+response);
 
         }
 
         response = await client.startRcvLoop();
-        debuglog(response);
+        debuglog("response: "+response);
       
         node.status({fill:"green",shape:"dot",text:"connected"});
-
-        const TimeoutObj = setTimeout(() => {
-          console.log('timeout beyond time');
-        }, options.timeout);
 
       }
       testAsync().catch(err => {
         node.error(err.message);
         debuglog(err.message);
-        node.status({fill:"red",shape:"dot",text:"error: "+err.message});
+        node.status({fill:"red",shape:"dot",text:"Connection error: "+err.message});
       })
 
     }
-    debuglog("----- 3 -----");
-    // Try to connect to the remote host
-    doConnect( this.vscpclient, 
+
+    function conn() {
+      // Try to connect to the remote host
+      doConnect( node.vscpclient, 
       {
-        host: this.host,
-        port: this.port,
-        timeout: this.timeout,
-        username: this.username,
-        password: this.password,
-        context: this.context,
-        filter: this.filter
+        host: node.host,
+        port: node.port,
+        timeout: node.timeout,
+        username: node.username,
+        password: node.password,
+        keyctx: node.keyctx,
+        filter: node.filter
       });
+    };
+
+    conn();
+
+    var timeoutHandle =  setInterval( () => {
+      console.log("Reconnecting!")
+      conn();
+    }, node.keepalive || 5000 );
+    
+    
 
   }
-
   RED.nodes.registerType('vscp-tcp-in', vscpTcpInputNode, {
     credentials: {
       username: {type:"text"},

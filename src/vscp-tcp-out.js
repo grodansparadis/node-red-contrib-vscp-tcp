@@ -40,6 +40,7 @@ const path = require('path');
 // NODE_DEBUG=node-vscp-vscp-tcp-out  for debug events from this module
 const util = require('util');
 const debuglog = util.debuglog('node-vscp-tcp-out');
+const debuglogmsg = util.debuglog('node-vscp-tcp-out-msg');
 
 module.exports = function(RED) {
   'use strict';
@@ -57,10 +58,10 @@ module.exports = function(RED) {
     const node = this;
 
     // Send event to configured host
-    node.on('input', function(msg, send, done) {
+    this.on('input', function(msg, send, done) {
       // If this is pre-1.0, 'send' will be undefined, so fallback to node.send
       send = send || function() { node.send.apply(node,arguments) }
-      msg.payload = msg.payload.toLowerCase();
+      msg.payload = "Hello there";
       send(msg);
       done();
       if (err) {
@@ -81,20 +82,22 @@ module.exports = function(RED) {
         }
       }
     });
+
+    this.on('close', function() {
+      debuglog("---------------- node-red CLOSE -------------------");
+      if (removed) {
+        // This node has been deleted
+      } else {
+        // This node is being restarted
+      }
+    });
+
   }
-  this.on('close', function() {
-    debuglog("---------------- node-red CLOSE -------------------");
-    if (removed) {
-      // This node has been deleted
-    } else {
-      // This node is being restarted
-    }
-  });
-  
   RED.nodes.registerType('vscp-tcp-out', vscpTcpOutputNode, {
     credentials: {
       username: {type:"text"},
       password: {type:"password"}
     }
   });
+
 }

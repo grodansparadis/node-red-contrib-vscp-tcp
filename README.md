@@ -68,9 +68,13 @@ The VSCP helper library is a c/c++ library with common VSCP functionality. It is
 ### More
 There is plenty of other tools available in the VSCP subsystem. Check the docs and the downloads.
 
-### Other node-red nodes
+### Other VSCP node-red nodes
 
 There are other node-red parts in development or already available that makes it possible to easily connect6 to websocket interfaces on remote VSCP daemons/servers or hosts.
+
+Checkout [node-red-contrib-vscp](https://www.npmjs.com/package/node-red-contrib-vscp) that contains several helper nodes useful for working with VSCP.
+
+If you work with CAN, and especially CAN4VSCP, you might find [node-red-contrib-socketcan](https://www.npmjs.com/package/node-red-contrib-socketcan) and  [node-red-contrib-canal](https://www.npmjs.com/package/node-red-contrib-canal) useful.
 
 ---
 Copyright © 2000-2020 Åke Hedman, Grodans Paradis AB
