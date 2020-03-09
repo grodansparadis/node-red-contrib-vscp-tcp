@@ -374,8 +374,8 @@
      "module": "node-red-contrib-vscp-tcp",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-contrib-vscp-tcp/src/vscp-tcp-in.js"
     },
-    "xvscp-tcp-out": {
-     "name": "xvscp-tcp-out",
+    "vscp-tcp-out": {
+     "name": "vscp-tcp-out",
      "types": [
       "vscp-tcp-out"
      ],

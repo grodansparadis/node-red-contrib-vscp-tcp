@@ -32,10 +32,10 @@
         "url": "https://github.com/grodansparadis/node-red-contrib-vscp-tcp/issues"
     },
     "dependencies": {
-        "node-red-contrib-vscp": "^1.0.5",
+        "node-red-contrib-vscp": "^1.0.6",
         "node-vscp": "^1.1.12",
         "node-vscp-class": "^1.0.6",
-        "node-vscp-tcp": "^1.0.7",
+        "node-vscp-tcp": "^1.0.8",
         "node-vscp-type": "^1.0.6",
         "util": "^0.12.2"
     },
@@ -46,7 +46,7 @@
         "node-red": "^1.0.4",
         "node-red-contrib-mock-node": "^0.4.0",
         "node-red-node-test-helper": "^0.2.3",
-        "npm-check-updates": "^4.0.3",
+        "npm-check-updates": "^4.0.4",
         "should": "^13.2.3"
     },
     "node-red": {

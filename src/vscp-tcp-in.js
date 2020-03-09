@@ -59,17 +59,24 @@ module.exports = function(RED) {
     // Create the tcp/ip input node
     RED.nodes.createNode(this, config);
 
+    const node = this;
+
     var flowContext = this.context().flow;
 
     // Retrieve the config node
     this.username = this.credentials.username || "admin";
     this.password = this.credentials.password || "secret";
     this.tls = parseInt(config.tls) || 0;
-    this.id = config.id; // Id for node from node-red
+
     // The channel id is saved in flow context if a key to 
     // save it under is entered. 
     this.keyctx = config.keyctx;
     debuglog("keyctx: ",this.keyctx, typeof this.keyctx);
+
+    this.nodeid = config.id; // Id for node from node-red
+    if ('string' === typeof node.keyctx ) {
+      flowContext.set(node.keyctx+".nodeid", this.nodeid );
+    }
 
     // Retrieve the config node
     this.host = RED.nodes.getNode(config.host);
@@ -91,14 +98,14 @@ module.exports = function(RED) {
 
     // Config node state
     /* this.connTimeout = 0; */   // Timeout handle
-    this.connKeepAlive = 0; // Keepalive handle
+    this.connKeepAlive = 0;       // Keepalive handle
     this.connected = false;
     this.connecting = false;
     this.closing = false;
     this.options = {};
     this.queue = [];
 
-    const node = this;
+    
 
     this.connecting = true;
     this.status({fill:"yellow",shape:"dot",text:"node-red:common.status.connecting..."});
@@ -167,14 +174,6 @@ module.exports = function(RED) {
       if ('string' === typeof node.keyctx ) {
         flowContext.set(node.keyctx+".alive", new Date() );
       }
-      
-      clearTimeout(timeoutHandle);
-
-      timeoutHandle =  setInterval( () => {
-        console.log("-----------------> Reconnecting!")
-        conn();
-      }, node.keepalive || 5000 );
-
     });
 
     ///////////////////////////////////////////////////////////////////////////
@@ -193,6 +192,10 @@ module.exports = function(RED) {
 
     this.on('close', function() {
       debuglog("---------------- node-red CLOSE -------------------");
+      
+      node.connected = false;
+      node.connecting = false;
+      
       if (removed) {
         // This node has been deleted
       } else {
@@ -215,10 +218,6 @@ module.exports = function(RED) {
     function doConnect(client,options) {
 
       debuglog(options);
-
-      /* node.connTimeout = setTimeout(() => {
-        debuglog('Connection timeout.');
-      }, options.timeout); */
 
       let response = {};  // Command response object
       const testAsync = async () => {
@@ -264,24 +263,15 @@ module.exports = function(RED) {
         let chid = await client.getChannelID();
         debuglog("ChannelID: " + chid, options.keyctx);
 
+        // Get channel GUID
+        let guid = await client.getGUID();
 
         // Save channel id in a flow context
         if ('string' === typeof options.keyctx ) {
           debuglog("Setting keyctx", chid, typeof chid );
-          flowContext.set(options.keyctx+".chid", chid );
-          flowContext.set(options.keyctx+".start", new Date() );
-        }
-
-        // Get channel GUID
-        let guid = await client.getGUID();
-        if ('string' === typeof options.keyctx) {
-          debuglog("GUID: " + guid);
-          flowContext.set(options.keyctx+".guid", guid );
-        }
-
-        // Save channel GUID in a flow context
-        if ('string' === typeof options.keyctx) {
-          flowContext.set(options.context +".guid", guid )
+          flowContext.set(options.keyctx + ".chid", chid );
+          flowContext.set(options.keyctx + ".start", new Date() );
+          flowContext.set(options.keyctx + ".guid", guid );
         }
 
         // set FILTER if defined
@@ -321,6 +311,8 @@ module.exports = function(RED) {
         debuglog("response: "+response);
       
         node.status({fill:"green",shape:"dot",text:"connected"});
+        node.connected = true;
+        node.connecting = false;
 
       }
       testAsync().catch(err => {
@@ -348,12 +340,12 @@ module.exports = function(RED) {
     conn();
 
     var timeoutHandle =  setInterval( () => {
-      console.log("Reconnecting!")
-      conn();
+      if ( !node.connected ) {
+        console.log("Reconnecting!")
+        conn();
+      }
     }, node.keepalive || 5000 );
     
-    
-
   }
   RED.nodes.registerType('vscp-tcp-in', vscpTcpInputNode, {
     credentials: {

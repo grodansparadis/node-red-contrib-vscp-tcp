@@ -32,7 +32,7 @@ SOFTWARE.
             host: {value:"", required:true, type:"vscp-tcp-config-host"},
             username: {value:"admin", required:true},
             password: {value:"secret", required:true},
-            context: {value:"", required:false},
+            keyctx: {value:"", required:false},
         },
         credentials: {
             username: {type:"text"},
@@ -66,8 +66,8 @@ SOFTWARE.
         <input type="password" id="node-input-password" placeholder="Password">
     </div>
     <div class="form-row">
-        <label for="node-input-context"><i class="fa fa-tag"></i> Context</label>
-        <input type="text" id="node-input-context" placeholder="Context">
+        <label for="node-input-keyctx"><i class="fa fa-tag"></i> Context key</label>
+        <input type="text" id="node-input-keyctx" placeholder="Context">
     </div>
     <hr />
     <div class="form-row">
