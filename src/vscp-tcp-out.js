@@ -303,7 +303,7 @@ module.exports = function(RED) {
             keyctx: node.keyctx,
             filter: node.filter
           });
-        };
+        }
     
         conn();
     

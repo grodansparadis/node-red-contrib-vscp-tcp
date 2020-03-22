@@ -190,7 +190,7 @@ module.exports = function(RED) {
     // callback: close
     //
 
-    this.on('close', function() {
+    this.on('close', function(removed, done) {
       debuglog("---------------- node-red CLOSE -------------------");
       
       node.connected = false;
@@ -335,7 +335,7 @@ module.exports = function(RED) {
         keyctx: node.keyctx,
         filter: node.filter
       });
-    };
+    }
 
     conn();
 
