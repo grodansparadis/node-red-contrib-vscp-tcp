@@ -1,14 +1,14 @@
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://choosealicense.com/licenses/mit/)
-[![Travis Build Status](https://api.travis-ci.org/grodansparadis/node-red-contrib-vscp-tcp.svg?branch=master)](https://travis-ci.org/grodansparadis/node-red-contrib-vscp-tcp)
-
-<img src="https://vscp.org/images/logo.png" width="100">
 
 # node-red-contrib-vscp-tcp
+
+![VSCP-LOGO](https://vscp.org/images/logo_100.png)
+
 VSCP tcp/ip interface input/output nodes for node-red that can receive/transmit events from/to a VSCP daemon or host. It is a perfect companion to [the other node.js modules](https://www.npmjs.com/settings/akhe/packages) that are available for VSCP.
 
 This assumes you have Node-RED already installed and working, if you need to install Node-RED see [here](https://nodered.org/docs/getting-started/installation)
 
 This software is part of the [VSCP (Very simple control protocol)](https://www.vscp.org) framework.
+
 
 ## Installation
 
@@ -30,11 +30,13 @@ Full documentation for VSCP is available at [https://docs.vscp.org](https://docs
 
 
 ## VSCP tcp/ip input node
+
 ![vscp-tcp-in](./images/vscp-tcp-in.png)
 
 The VSCP tcp/ip input node connects to a VSCP daemon/server or some other VSCP host and open a connection that will receive VSCP events from hardware and other systems that is attached to the remote daemon/server or host.
 
 ### How to use
+
 Specify a **host** that you want to connect to. It is defined by an url and a port and credentials in the form of a username and a password. You can also set keep alive and tls usage as well as a connection timeout. The host settings are common for all nodes.
 
 If you just want to receive certain events or events from certain remote interfaces you should specify a filter. You can read more about [VSCP filters here](). If you want to receive everything from the remote host just use a all nill filter.
@@ -45,11 +47,11 @@ With a **keepalive** value set the node will try to automatically reconnect to t
 
 The **context key** is a node-red flow context location where a vscp tcp input node will save the channel id of it's connection with a remote host. If the same context key is used for a vscp tcp output node then the receiving node will not receive events sent through that node. Some other values is also saved in the specified context.
 
-  * **nodeid** - This is the node-red nodeid for the input node.
-  * **chid** - The channel id for the input nodes connection channel to the remote host.
-  * **start** - When the input node was started.
-  * **alive** - Last time the remote host was confirmed to be alive. This should be approximate one minute intervals if all is OK.
-  * **error** - Last error message.
+* **nodeid** - This is the node-red nodeid for the input node.
+* **chid** - The channel id for the input nodes connection channel to the remote host.
+* **start** - When the input node was started.
+* **alive** - Last time the remote host was confirmed to be alive. This should be approximate one minute intervals if all is OK.
+* **error** - Last error message.
 
 Two input node should **NEVER** have the same context key.
 
@@ -88,7 +90,7 @@ With a **keepalive** value set the node will try to automatically reconnect to t
 
 The **context key** is a node-red flow context location where a vscp tcp input node will save the channel id of it's connection with a remote host. When the same context key is used for a vscp tcp output node then the receiving node will not receive events sent through that node. 
 
-When all is setup just startt to send VSCP event object. They are of the form
+When all is setup just start to send VSCP event object. They are of the form
 
 ```javascript
 {   
@@ -114,18 +116,23 @@ and missing elements will get sensible defaults. More info is [here](https://doc
 ```
 
 ## VSCP & friends
+
 The VSCP subsystem consist of many system components. 
 
 ### VSCP Daemon
+
 The VSCP daemon is a central piece of software that act as a hub for VSCP based hardware or hardware that abstract as VSCP hardware, You can find the documentation for the VSCP daemon [here](https://docs.vscp.org/#vscpd).
 
 ### VSCP Works
+
 VSCP works is a tool that make sinteraction with VSCP system components easy. VSCP Works is documented [here](https://docs.vscp.org/#vscpworks).
 
 ### VSCP Helper library
+
 The VSCP helper library is a c/c++ library with common VSCP functionality. It is available for Python to and will be available for PHP and node.js. It is documented [here](https://docs.vscp.org/#vscphelper);  
 
 ### More
+
 There is plenty of other tools available in the VSCP subsystem. Check the docs and the downloads.
 
 ### Other VSCP node-red nodes

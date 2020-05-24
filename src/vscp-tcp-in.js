@@ -94,6 +94,19 @@ module.exports = function(RED) {
     this.keepalive = parseInt(this.host.keepalive) || 0;
 
     this.filter = RED.nodes.getNode(config.filter);
+    if ( null == this.filter ) {
+      // Set a null filter that let everything through
+      this.filter = {
+        filterPriority: 0,
+        maskPriority: 0,
+        filterClass: 0,
+        maskClass: 0,
+        filterType: 0,
+        maskType: 0,
+        filterGuid: '00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00',
+        maskGuid: '00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00'
+      };
+    }
     debuglog("VSCP filter node: " + this.filter.filterGuid);
 
     // Config node state
@@ -191,6 +204,7 @@ module.exports = function(RED) {
     //
 
     this.on('close', function(removed, done) {
+      
       debuglog("---------------- node-red CLOSE -------------------");
       
       node.connected = false;
@@ -201,8 +215,10 @@ module.exports = function(RED) {
       } else {
         // This node is being restarted
       }
+
       const testAsync = async () => {
         await this.vscpclient.disconnect();
+        if ( done ) done();
       }
       testAsync().catch(err => {
         debuglog("Catching disconnect error");

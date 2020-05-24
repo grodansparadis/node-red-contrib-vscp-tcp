@@ -2,7 +2,7 @@
  "nodes": {
   "node-red": {
    "name": "node-red",
-   "version": "1.0.4-git",
+   "version": "1.0.6-git",
    "local": false,
    "nodes": {
     "inject": {
@@ -361,7 +361,7 @@
   },
   "node-red-contrib-vscp-tcp": {
    "name": "node-red-contrib-vscp-tcp",
-   "version": "1.0.0",
+   "version": "1.1.0",
    "local": true,
    "nodes": {
     "vscp-tcp-in": {
@@ -655,7 +655,8 @@
      "module": "node-red-dashboard",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_spacer.js"
     }
-   }
+   },
+   "pending_version": "2.22.1"
   },
   "node-red-contrib-dashboard-sum-bars": {
    "name": "node-red-contrib-dashboard-sum-bars",
@@ -750,11 +751,12 @@
      "module": "node-red-node-ui-table",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-node-ui-table/node.js"
     }
-   }
+   },
+   "pending_version": "0.3.1"
   },
   "node-red-contrib-vscp": {
    "name": "node-red-contrib-vscp",
-   "version": "1.0.5",
+   "version": "1.1.0",
    "local": false,
    "nodes": {
     "vscp2can": {
@@ -786,6 +788,16 @@
      "local": false,
      "module": "node-red-contrib-vscp",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/node_modules/node-red-contrib-vscp/src/vscp-config-filter.js"
+    },
+    "event2value": {
+     "name": "event2value",
+     "types": [
+      "event2value"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-vscp",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/node_modules/node-red-contrib-vscp/src/event2value.js"
     }
    }
   }
