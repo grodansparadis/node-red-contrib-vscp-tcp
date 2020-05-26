@@ -442,7 +442,7 @@
   },
   "node-red-dashboard": {
    "name": "node-red-dashboard",
-   "version": "2.19.4",
+   "version": "2.22.1",
    "local": true,
    "nodes": {
     "ui_base": {
@@ -655,8 +655,7 @@
      "module": "node-red-dashboard",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-dashboard/nodes/ui_spacer.js"
     }
-   },
-   "pending_version": "2.22.1"
+   }
   },
   "node-red-contrib-dashboard-sum-bars": {
    "name": "node-red-contrib-dashboard-sum-bars",
@@ -738,7 +737,7 @@
   },
   "node-red-node-ui-table": {
    "name": "node-red-node-ui-table",
-   "version": "0.2.1",
+   "version": "0.3.1",
    "local": true,
    "nodes": {
     "ui_table": {
@@ -751,8 +750,7 @@
      "module": "node-red-node-ui-table",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/.node-red/node_modules/node-red-node-ui-table/node.js"
     }
-   },
-   "pending_version": "0.3.1"
+   }
   },
   "node-red-contrib-vscp": {
    "name": "node-red-contrib-vscp",

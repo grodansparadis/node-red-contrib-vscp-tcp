@@ -118,8 +118,6 @@ module.exports = function(RED) {
     this.options = {};
     this.queue = [];
 
-    
-
     this.connecting = true;
     this.status({fill:"yellow",shape:"dot",text:"node-red:common.status.connecting..."});
     
@@ -207,24 +205,39 @@ module.exports = function(RED) {
       
       debuglog("---------------- node-red CLOSE -------------------");
       
-      node.connected = false;
-      node.connecting = false;
-      
+      this.vscpclient.disconnect({
+        "onSuccess": function() {
+          debuglog("Disconnected ----------------->");
+          node.log('Disconnect from VSCP server');
+          done();
+        }
+      });
+
+      // No reconnects during close down
+      clearInterval(timeoutHandle);
+
+      node.status({fill:"red",shape:"dot",text:"Connection error: "+err.message});
+
       if (removed) {
         // This node has been deleted
+        debuglog("Node deleted");
       } else {
         // This node is being restarted
+        debuglog("Node restarted");
       }
 
-      const testAsync = async () => {
-        await this.vscpclient.disconnect();
-        if ( done ) done();
-      }
-      testAsync().catch(err => {
-        debuglog("Catching disconnect error");
-        debuglog(err);
-        node.error(err, err.message);
-      })
+      // const closeAsync = async () => {
+      //   await this.vscpclient.disconnect();
+      //   node.log('Disconnect from VSCP server');
+      // }
+      // closeAsync().catch(err => {
+      //   debuglog("Catching disconnect error");
+      //   debuglog(err);
+      //   node.error("Catch on close",err, err.message);
+      // })
+
+      // done();
+
     });
 
     ///////////////////////////////////////////////////////////////////////////
@@ -236,10 +249,11 @@ module.exports = function(RED) {
       debuglog(options);
 
       let response = {};  // Command response object
+
       const testAsync = async () => {
 
         // Connect to VSCP server/device
-        debuglog("Connect");
+        debuglog("Calling Connect");
         response = await client.connect(
         {
           host: options.host,
@@ -258,7 +272,7 @@ module.exports = function(RED) {
           command: "user",
           argument: options.username
         });
-        debuglog("response: "+response);
+        debuglog("user: response: "+response);
 
         // Log on to server (step 2 password)
         response = await client.sendCommand(
@@ -266,14 +280,14 @@ module.exports = function(RED) {
           command: "pass",
           argument: options.password
         });
-        debuglog("response: "+response);
+        debuglog("pass: response: "+response);
 
         // Send no operation command (does nothing)
         response = await client.sendCommand(
         {
           command: "noop"
         })
-        debuglog(response);
+        debuglog("noop: response: "+response);
 
         // Get channel id
         let chid = await client.getChannelID();
@@ -281,6 +295,7 @@ module.exports = function(RED) {
 
         // Get channel GUID
         let guid = await client.getGUID();
+        debuglog("Channel GUID: " + guid);
 
         // Save channel id in a flow context
         if ('string' === typeof options.keyctx ) {
@@ -305,7 +320,7 @@ module.exports = function(RED) {
             filterType: options.filter.filterType,
             filterGuid: options.filter.filterGuid,
           });
-          debuglog(response);
+          debuglog("Filter: Response: "+response);
 
           debuglog("*********** Setting Mask ***********" );
           debuglog(options.filter.maskPriority + " " +
@@ -319,27 +334,31 @@ module.exports = function(RED) {
             maskType: options.filter.maskType,
             maskGuid: options.filter.maskGuid,
           });
-          debuglog("response: "+response);
+          debuglog("Mask: response: " + response);
 
         }
 
         response = await client.startRcvLoop();
-        debuglog("response: "+response);
+        debuglog("rcvloop: response: " + response);
       
         node.status({fill:"green",shape:"dot",text:"connected"});
-        node.connected = true;
-        node.connecting = false;
-
+        
       }
       testAsync().catch(err => {
+        node.connecting = false;
+        node.connected = false;
         node.error(err.message);
-        debuglog(err.message);
+        debuglog("doConnect catch error : " + err.message);
         node.status({fill:"red",shape:"dot",text:"Connection error: "+err.message});
       })
 
     }
 
     function conn() {
+
+      node.connected = false;
+      node.connecting = true;  
+
       // Try to connect to the remote host
       doConnect( node.vscpclient, 
       {
@@ -356,8 +375,17 @@ module.exports = function(RED) {
     conn();
 
     var timeoutHandle =  setInterval( () => {
-      if ( !node.connected ) {
-        console.log("Reconnecting!")
+      
+      debuglog("Link timeout: connected=" + 
+        node.connected + 
+        " connecting=" + 
+        node.connecting +
+        " keepalive=" +
+        node.keepalive );
+
+      if ( !node.connected && !node.connecting ) {
+        node.log("Reconnecting!");
+        node.status({fill:"black",shape:"dot",text:"Reconnecting "});
         conn();
       }
     }, node.keepalive || 5000 );
