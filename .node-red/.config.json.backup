@@ -361,7 +361,7 @@
   },
   "node-red-contrib-vscp-tcp": {
    "name": "node-red-contrib-vscp-tcp",
-   "version": "1.1.0",
+   "version": "1.2.1",
    "local": true,
    "nodes": {
     "vscp-tcp-in": {
@@ -754,7 +754,7 @@
   },
   "node-red-contrib-vscp": {
    "name": "node-red-contrib-vscp",
-   "version": "1.1.0",
+   "version": "1.2.0",
    "local": false,
    "nodes": {
     "vscp2can": {
@@ -776,6 +776,16 @@
      "local": false,
      "module": "node-red-contrib-vscp",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/node_modules/node-red-contrib-vscp/src/can2vscp.js"
+    },
+    "vscpfilter": {
+     "name": "vscpfilter",
+     "types": [
+      "vscpfilter"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-vscp",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/node_modules/node-red-contrib-vscp/src/vscpfilter.js"
     },
     "vscp-config-filter": {
      "name": "vscp-config-filter",

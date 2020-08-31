@@ -36,7 +36,7 @@ const path = require('path');
 
 // const hlp = require(path.join(__dirname, '/lib/dateTimeHelper.js'));
 // https://nodejs.org/api/util.html
-// export NODE_DEBUG=node-vscp-tcp*     for all de  for debug events from this module
+// export NODE_DEBUG=node-red-vscp-tcp*     for all de  for debug events from this module
 const util = require('util');
 const debuglog = util.debuglog('node-red-vscp-tcp-out');
 const debuglogmsg = util.debuglog('node-red-vscp-tcp-out-msg');
@@ -116,7 +116,7 @@ module.exports = function(RED) {
       
       var obj = {};
       obj.event = msg.payload;
-      debuglog("Send event");
+      debuglog("Send event [input]");
       doSendEvent(obj);
 
       if (done) {
@@ -323,27 +323,26 @@ module.exports = function(RED) {
 
     function doSendEvent(ev) {
     
-      debuglog("Send event");
+      debuglog("Send event [func]",ev);
 
-      const doAsync = async (ev) => {
-        debuglog(ev,node.keyctx);
-        // Get channel id
-        if ('string' === typeof node.keyctx ) {
-          node.chid = flowContext.get(node.keyctx + ".chid");
-          debuglog("Getting keyctx", node.chid, typeof node.chid );
-          ev.event.vscpObId = node.chid;
-          debuglog("ev.event.vscpObId=",ev.event.vscpObId);
-        }
-        else {
-          ev.event.vscpObId = 0;
-          debuglog("ev.event.vscpObId=",ev.event.vscpObId);
-        }
+      debuglog(ev,node.keyctx);
+        
+      // Get channel id
+      if ('string' === typeof node.keyctx ) {
+        node.chid = flowContext.get(node.keyctx + ".chid");
+        debuglog("Getting keyctx", node.chid, typeof node.chid );
+        ev.event.vscpObId = node.chid;
+        debuglog(ev);
+        debuglog("ev.event.vscpObId=",ev.event.vscpObId);
+      }
+      else {
+        ev.event.vscpObId = 0;
+        debuglog("ev.event.vscpObId=",ev.event.vscpObId);
+      }
 
-        await node.vscpclient.sendEvent(ev);
-      }          
-      doAsync().catch(err => {
-        node.error("Error when sending event " + err);
-      });
+      node.vscpclient.sendEvent(ev);
+      debuglog("ev.event sent");
+
     }
             
   }
