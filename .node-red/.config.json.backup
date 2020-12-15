@@ -2,7 +2,7 @@
  "nodes": {
   "node-red": {
    "name": "node-red",
-   "version": "1.0.6-git",
+   "version": "1.1.3-git",
    "local": false,
    "nodes": {
     "inject": {
@@ -408,7 +408,7 @@
   },
   "node-red-node-rbe": {
    "name": "node-red-node-rbe",
-   "version": "0.2.8",
+   "version": "0.2.9",
    "local": false,
    "nodes": {
     "rbe": {
@@ -754,7 +754,7 @@
   },
   "node-red-contrib-vscp": {
    "name": "node-red-contrib-vscp",
-   "version": "1.2.0",
+   "version": "1.2.1",
    "local": false,
    "nodes": {
     "vscp2can": {
@@ -806,6 +806,16 @@
      "local": false,
      "module": "node-red-contrib-vscp",
      "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/node_modules/node-red-contrib-vscp/src/event2value.js"
+    },
+    "m-filter": {
+     "name": "m-filter",
+     "types": [
+      "m-filter"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-vscp",
+     "file": "/home/akhe/development/VSCP/node-red-contrib-vscp-tcp/node_modules/node-red-contrib-vscp/src/measurementfilter.js"
     }
    }
   }
