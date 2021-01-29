@@ -7,7 +7,7 @@
         "node-red-contrib-dashboard-sum-bars": "0.0.1",
         "node-red-contrib-ui-led": "~0.3.1",
         "node-red-contrib-ui-sys-loft": "~0.1.1",
-        "node-red-dashboard": "~2.22.1",
+        "node-red-dashboard": "~2.26.2",
         "node-red-node-tail": "~0.1.1",
         "node-red-node-ui-list": "~0.2.5",
         "node-red-node-ui-table": "~0.3.1"
