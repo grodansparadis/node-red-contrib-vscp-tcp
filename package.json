@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-vscp-tcp",
-    "version": "1.2.10",
+    "version": "1.2.11",
     "description": "",
     "main": "index.js",
     "keywords": [
@@ -30,22 +30,15 @@
         "url": "https://github.com/grodansparadis/node-red-contrib-vscp-tcp/issues"
     },
     "dependencies": {
-        "node-red-contrib-vscp": ">=1.2.10",
-        "node-vscp": ">=1.1.22",
-        "node-vscp-class": ">=1.0.18",
+        "node-red-contrib-vscp": ">=1.2.11",
+        "node-vscp": ">=1.1.23",
+        "node-vscp-class": ">=1.0.19",
         "node-vscp-tcp": ">=1.1.4",
-        "node-vscp-type": ">=1.0.18",
+        "node-vscp-type": ">=1.0.20",
         "util": ">=0.12.4"
     },
+    "@comment devDependecies" : "Moved to devdeps.txt",
     "devDependencies": {
-        "chai": ">=4.3.6",
-        "eslint": ">=8.15.0",
-        "mocha": ">=10.0.0",
-        "node-red": "^0.19.6",
-        "node-red-contrib-mock-node": ">=0.5.3",
-        "node-red-node-test-helper": ">=0.2.7",
-        "npm-check-updates": ">=13.0.0",
-        "should": ">=13.2.3"
     },
     "node-red": {
         "nodes": {
