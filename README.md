@@ -1,7 +1,7 @@
 
 # node-red-contrib-vscp-tcp
 
-![VSCP-LOGO](https://vscp.org/images/logo_100.png)
+![VSCP-LOGO](./images/logo_100.png)
 
 VSCP tcp/ip interface input/output nodes for node-red that can receive/transmit events from/to a VSCP daemon or host. It is a perfect companion to [the other node.js modules](https://www.npmjs.com/settings/akhe/packages) that are available for VSCP.
 
