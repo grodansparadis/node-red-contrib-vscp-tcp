@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-vscp-tcp",
-    "version": "1.2.14",
+    "version": "1.2.15",
     "description": "",
     "main": "index.js",
     "keywords": [
@@ -30,12 +30,12 @@
         "url": "https://github.com/grodansparadis/node-red-contrib-vscp-tcp/issues"
     },
     "dependencies": {
-        "node-red-contrib-vscp": ">=1.2.11",
-        "node-vscp": ">=1.1.23",
-        "node-vscp-class": ">=1.0.19",
-        "node-vscp-tcp": ">=1.1.4",
-        "node-vscp-type": ">=1.0.20",
-        "util": ">=0.12.4"
+        "node-red-contrib-vscp": ">=1.2.13",
+        "node-vscp": ">=1.1.26",
+        "node-vscp-class": ">=1.0.23",
+        "node-vscp-tcp": ">=1.1.5",
+        "node-vscp-type": ">=1.0.22",
+        "util": ">=0.12.5"
     },
     "@comment devDependecies" : "Moved to devdeps.txt",
     "devDependencies": {
