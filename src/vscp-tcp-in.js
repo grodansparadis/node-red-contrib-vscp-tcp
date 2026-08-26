@@ -216,7 +216,7 @@ module.exports = function(RED) {
       // No reconnects during close down
       clearInterval(timeoutHandle);
 
-      node.status({fill:"red",shape:"dot",text:"Connection error: "+err.message});
+      node.status({fill:"red",shape:"dot",text:"disconnected"});
 
       if (removed) {
         // This node has been deleted
